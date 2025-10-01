@@ -1,4 +1,12 @@
+from __future__ import annotations
 import streamlit as st
+import streamlit as st
+import pandas as pd
+import numpy as np
+from io import StringIO
+from datetime import datetime, timedelta
+from collections import defaultdict
+
 
 st.title("🎈 My new app")
 st.write(
@@ -20,13 +28,6 @@ numpy
   streamlit run teacher_scheduler_app.py
 """
 
-from __future__ import annotations
-import streamlit as st
-import pandas as pd
-import numpy as np
-from io import StringIO
-from datetime import datetime, timedelta
-from collections import defaultdict
 
 st.set_page_config(page_title="교사 개인 시간표 자동 배치", layout="wide")
 st.title("🗓️ 교사 개인 시간표 자동 배치 (학생 6명)")
