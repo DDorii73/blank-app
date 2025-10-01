@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 
 
-st.title("🎈 My new app")
+st.title("🎈 특수학급 시간표 작성 프로그램")
 st.write(
     "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
 )
@@ -16,13 +16,8 @@ st.write(
 """
 교사 개인 시간표 + 학생 6명 적용 (MVP)
 - Streamlit 앱
-- Greedy 배치(간단한 되돌리기 포함)
 - CSV 템플릿 생성/다운로드, 배치 결과 시각화, CSV/ICS 내보내기
 
-필요 패키지 (requirements.txt 예시)
-streamlit
-pandas
-numpy
 
 실행:
   streamlit run teacher_scheduler_app.py
@@ -41,13 +36,13 @@ DAY_LABEL = {"Mon": "월", "Tue": "화", "Wed": "수", "Thu": "목", "Fri": "금
 @st.cache_data
 def sample_students_csv() -> str:
     return (
-        "student_id,name,grade,homeroom,priority,service_type\n"
-        "S1,김가람,2,2-1,1,국어\n"
-        "S2,박나래,1,1-3,2,수학\n"
-        "S3,이도현,3,3-2,2,사회성\n"
-        "S4,최서윤,2,2-2,1,읽기\n"
-        "S5,정민수,1,1-1,3,자립\n"
-        "S6,한유진,2,2-3,2,상담\n"
+        "student_id,이름,학년,원반,배정시수,이수과목\n"
+        "S1,김00,2,2-1,1,국어\n"
+        "S2,박00,1,1-3,2,수학\n"
+        "S3,이00,3,3-2,2,진직\n"
+        "S4,최00,2,2-2,1,정보\n"
+        "S5,정00,1,1-1,3,체육\n"
+        "S6,한00,2,2-3,2,국어\n"
     )
 
 @st.cache_data
@@ -165,8 +160,8 @@ def parse_avoid(s: str) -> set[tuple[str,int]]:
 
 # dict 형태로 언제든 접근 가능하게 가공
 students = {
-    r.student_id: dict(student_id=r.student_id, name=r.name, grade=r.grade, homeroom=r.homeroom,
-                       priority=int(r.priority), service_type=r.service_type)
+    r.student_id: dict(student_id=r.student_id, name=r.이름, grade=r.학년, homeroom=r.원반,
+                       priority=int(r.배정시수) if hasattr(r, '배정시수') else None, service_type=r.이수과목)
     for r in students_df.itertuples(index=False)
 }
 
